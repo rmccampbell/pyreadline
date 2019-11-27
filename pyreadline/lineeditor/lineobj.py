@@ -224,7 +224,7 @@ class TextLine(object):
             pass
         
     def __repr__(self):
-        return 'TextLine("%s",point=%s,mark=%s)'%(self.line_buffer, self.point, self.mark)
+        return 'TextLine(%r,point=%s,mark=%s)'%(self.line_buffer, self.point, self.mark)
 
     def copy(self):
         return self.__class__(self)
@@ -408,7 +408,7 @@ class ReadLineTextBuffer(TextLine):
 
     def __repr__(self):
         return 'ReadLineTextBuffer'\
-               '("%s",point=%s,mark=%s,selection_mark=%s)'%\
+               '(%r,point=%s,mark=%s,selection_mark=%s)'%\
                  (self.line_buffer, self.point, self.mark,self.selection_mark)
 
 
@@ -752,7 +752,7 @@ class ReadLineTextBuffer(TextLine):
 
     def paste_from_kill_ring(self):
         if self.kill_ring:
-            self.insert_text(self.kill_ring[0])
+            self.insert_text(self.kill_ring[0].get_line_text())
 
 
 ##################################################################

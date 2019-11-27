@@ -19,9 +19,9 @@ def str_find_all(str, ch):
             result.append(index)
             index += 1
     return result
-        
 
-word_pattern = re.compile("(x*)")
+
+word_pattern = re.compile("(x+)")
 
 def markwords(str, iswordfun):
     markers = {True : "x", False : "o"}

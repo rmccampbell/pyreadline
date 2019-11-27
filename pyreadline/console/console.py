@@ -765,7 +765,7 @@ def hook_wrapper_23(stdin, stdout, prompt):
     '''Wrap a Python readline so it behaves like GNU readline.'''
     try:
         # call the Python hook
-        res = ensure_str(readline_hook(prompt))
+        res = ensure_str(readline_hook(ensure_unicode(prompt)))
         # make sure it returned the right sort of thing
         if res and not isinstance(res, bytes):
             raise TypeError('readline must return a string.')

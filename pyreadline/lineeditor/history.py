@@ -79,7 +79,7 @@ class LineHistory(object):
         if filename is None:
             filename = self.history_filename
         try:
-            for line in open(filename, 'r'):
+            for line in open(filename, 'r', encoding='utf-8', errors='replace'):
                 self.add_history(lineobj.ReadLineTextBuffer(ensure_unicode(line.rstrip())))
         except IOError:
             self.history = []
@@ -89,10 +89,10 @@ class LineHistory(object):
         '''Save a readline history file.'''
         if filename is None:
             filename = self.history_filename
-        fp = open(filename, 'wb')
+        fp = open(filename, 'w', encoding='utf-8')
         for line in self.history[-self.history_length:]:
-            fp.write(ensure_str(line.get_line_text()))
-            fp.write('\n'.encode('ascii'))
+            fp.write(ensure_unicode(line.get_line_text()))
+            fp.write('\n')
         fp.close()
 
 
@@ -139,12 +139,12 @@ class LineHistory(object):
 
     def reverse_search_history(self, searchfor, startpos=None):
         if startpos is None:
-            startpos = self.history_cursor
+            startpos = min(self.history_cursor, max(0, self.get_current_history_length()-1))
         origpos = startpos
 
-        result =  lineobj.ReadLineTextBuffer("")
+        result = lineobj.ReadLineTextBuffer("")
 
-        for idx, line in list(enumerate(self.history))[startpos:0:-1]:
+        for idx, line in list(enumerate(self.history))[startpos::-1]:
             if searchfor in line:
                 startpos = idx
                 break
@@ -153,12 +153,12 @@ class LineHistory(object):
         #someone pushed ctrl-r and we should find the next match
         if self.last_search_for == searchfor and startpos > 0:
             startpos -= 1
-            for idx, line in list(enumerate(self.history))[startpos:0:-1]:
+            for idx, line in list(enumerate(self.history))[startpos::-1]:
                 if searchfor in line:
                     startpos = idx
                     break
 
-        if self.history:                    
+        if self.history:
             result = self.history[startpos].get_line_text()
         else:
             result = ""

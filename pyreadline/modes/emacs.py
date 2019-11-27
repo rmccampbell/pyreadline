@@ -120,6 +120,7 @@ class SearchPromptMode(object):
         if keyinfo.keyname == 'backspace':
             self.non_inc_query = self.non_inc_query[:-1]
         elif keyinfo.keyname in ['return', 'escape']:
+            res = ""
             if self.non_inc_query:
                 if self.non_inc_direction == -1:
                     res = history.reverse_search_history(self.non_inc_query)
