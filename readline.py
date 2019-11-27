@@ -75,6 +75,9 @@ else:
     callback_handler_remove=rl.callback_handler_remove
     callback_read_char=rl.callback_read_char
 
+    def redisplay():
+        pass
+
     console.install_readline(rl.readline)
 
 __all__.append("rl")
