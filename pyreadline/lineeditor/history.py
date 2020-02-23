@@ -7,6 +7,7 @@
 #*****************************************************************************
 from __future__ import print_function, unicode_literals, absolute_import
 import re, operator, string, sys, os
+from io import open
 
 from pyreadline.unicode_helper import ensure_unicode, ensure_str
 if "pyreadline" in sys.modules:
