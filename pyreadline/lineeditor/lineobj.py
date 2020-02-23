@@ -255,9 +255,9 @@ class TextLine(object):
         buf = self.line_buffer
         buf = list(map(ensure_unicode, buf))
         return ''.join(buf)
-            
+
     def set_line(self, text, cursor = None):
-        self.line_buffer = [ c for c in str(text) ]
+        self.line_buffer = [ c for c in ensure_unicode(text) ]
         if cursor is None:
             self.point = len(self.line_buffer)
         else:

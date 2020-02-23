@@ -153,7 +153,7 @@ class NotEmacsMode(basemode.BaseMode):
 
     def _i_search(self, searchfun, direction, init_event):
         c = self.console
-        line = self.get_line_buffer()
+        line = self.l_buffer.get_line_text()
         query = ''
         hc_start = self._history.history_cursor #+ direction
         while 1:
